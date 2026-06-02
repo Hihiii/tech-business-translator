@@ -76,13 +76,28 @@ tech-business-translator/
   references/
     jargon-glossary.md
     workflow-guide.md
+    audience-guide.md
+    tone-guide.md
+    legal-safe-communication.md
+    red-team-checklist.md
+    domain-kpi-mapping.md
+    router.md
+    zh-tw-style-guide.md
   examples/
     incident-bilingual.md
     tech-debt-bilingual.md
     security-advisory-bilingual.md
   scripts/
     check_jargon.py
+    check_bilingual_consistency.py
+    score_output.py
+    run_regression_tests.py
     validate_skill.py
+  output-packs/
+    stakeholder-incident-pack.md
+    security-communication-pack.md
+  showcase/
+    before-after.md
 ```
 
 ## Templates
@@ -95,10 +110,15 @@ Each template includes an English section and a Traditional Chinese section:
 - `feature-pitch.md`: feature proposals and budget requests.
 - `security-advisory.md`: vulnerabilities, audit findings, compliance risk.
 - `post-mortem.md`: retrospective analysis after incidents or process failures.
+- `client-email.md`: customer-facing emails and external updates.
+- `slack-update.md`: short internal Slack, Teams, or chat updates.
+- `executive-brief.md`: leadership one-pagers and board pre-reads.
+- `decision-memo.md`: options, tradeoffs, and recommendation memos.
+- `customer-faq.md`: customer support FAQ and talking points.
 
-## Jargon Checker
+## Quality Tools
 
-Run the checker after drafting business-facing output:
+Jargon check:
 
 ```bash
 python scripts/check_jargon.py --input "Our Redis API latency is high" --audience executive
@@ -114,6 +134,24 @@ Useful options:
 - `--strict`
 - `--json`
 
+Bilingual consistency check:
+
+```bash
+python scripts/check_bilingual_consistency.py --file output.md
+```
+
+Output quality score:
+
+```bash
+python scripts/score_output.py --file output.md --audience executive --min-score 70
+```
+
+Regression fixture check:
+
+```bash
+python scripts/run_regression_tests.py
+```
+
 ## Validation
 
 Run the skill validation script:
@@ -123,6 +161,18 @@ python scripts/validate_skill.py
 ```
 
 It checks required files, `SKILL.md` frontmatter, common mojibake markers, bilingual template sections, and the jargon checker smoke test.
+
+## Advanced References
+
+- `references/audience-guide.md`: audience-specific depth and emphasis.
+- `references/tone-guide.md`: tone-specific phrasing and guardrails.
+- `references/zh-tw-style-guide.md`: Taiwan-facing Traditional Chinese business style.
+- `references/legal-safe-communication.md`: safe wording for legal, security, and customer-facing communication.
+- `references/red-team-checklist.md`: final review checklist for high-risk outputs.
+- `references/domain-kpi-mapping.md`: SaaS, e-commerce, fintech, healthcare, and B2B KPI mapping.
+- `references/router.md`: prompt-to-template routing rules.
+- `output-packs/`: multi-audience communication packs.
+- `showcase/before-after.md`: example transformation from technical input to business output.
 
 ## Chinese README / 中文說明
 

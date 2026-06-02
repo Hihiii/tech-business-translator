@@ -64,6 +64,11 @@ Use the user's requested format. Otherwise select the closest module:
 | New feature, budget request, roadmap proposal | `templates/feature-pitch.md` |
 | Vulnerability, audit result, compliance risk | `templates/security-advisory.md` |
 | Retrospective after incident or launch failure | `templates/post-mortem.md` |
+| Customer-facing email or external update | `templates/client-email.md` |
+| Short Slack, Teams, or chat update | `templates/slack-update.md` |
+| Leadership one-pager or board pre-read | `templates/executive-brief.md` |
+| Options, tradeoffs, or decision request | `templates/decision-memo.md` |
+| Customer support FAQ or talking points | `templates/customer-faq.md` |
 
 When a template is used, fill it in. Never output a raw template with placeholders unless the user explicitly asks for a blank template.
 
@@ -88,6 +93,8 @@ For bilingual output:
 2. Provide the Traditional Chinese version second.
 3. Keep the structure equivalent, but localize wording naturally.
 4. Do not make one version materially stronger, softer, or less precise than the other.
+
+For high-risk bilingual output, run or mentally apply `scripts/check_bilingual_consistency.py` to verify matching numbers, dates, action items, and risk language.
 
 ## Accuracy Guardrails
 
@@ -145,11 +152,29 @@ Targets:
 - PM / VP / Legal: under 10-15% jargon, depending on context.
 - If jargon remains because accuracy requires it, explain the term once.
 
+## High-risk Review
+
+For client-facing, legal, security, incident, or board-level communication:
+
+1. Load `references/legal-safe-communication.md` if legal or customer risk is present.
+2. Load `references/red-team-checklist.md` before finalizing.
+3. Use `references/audience-guide.md` and `references/tone-guide.md` when the audience or tone is ambiguous.
+4. Use `references/domain-kpi-mapping.md` when the business domain is clear.
+5. Use `references/router.md` when the requested format is ambiguous.
+
 ## References
 
 Load only what is needed:
 
 - `references/jargon-glossary.md`: replacement terms and bilingual examples.
 - `references/workflow-guide.md`: detailed bilingual workflow, output formats, and quality checklist.
+- `references/audience-guide.md`: audience-specific depth and emphasis.
+- `references/tone-guide.md`: formal, urgent, diplomatic, client-safe, legal-safe, board-ready, investor-ready, and crisis tones.
+- `references/zh-tw-style-guide.md`: Taiwan-facing Traditional Chinese business wording.
+- `references/legal-safe-communication.md`: liability-sensitive and customer-safe wording.
+- `references/red-team-checklist.md`: final review for high-risk outputs.
+- `references/domain-kpi-mapping.md`: SaaS, e-commerce, fintech, healthcare, and B2B KPI mapping.
+- `references/router.md`: prompt-to-template routing rules.
 - `templates/*.md`: scenario-specific bilingual templates.
 - `examples/*.md`: sample prompts and expected business-facing outputs.
+- `output-packs/*.md`: multi-audience communication packs for incidents and security issues.

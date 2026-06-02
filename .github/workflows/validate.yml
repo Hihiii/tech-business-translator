@@ -32,7 +32,7 @@ jobs:
       - name: Check Traditional Chinese jargon detection
         run: |
           python scripts/check_jargon.py \
-            --input "API 延遲升高，快取命中率下降" \
+            --input $'API \u5ef6\u9072\u5347\u9ad8\uff0c\u5feb\u53d6\u547d\u4e2d\u7387\u4e0b\u964d' \
             --audience executive \
             --threshold 100
 
@@ -42,3 +42,23 @@ jobs:
             --input "Customer response time is slower than expected" \
             --audience client \
             --strict
+
+      - name: Check bilingual consistency
+        run: python scripts/check_bilingual_consistency.py --file examples/incident-bilingual.md
+
+      - name: Score sample output
+        run: |
+          cat > /tmp/sample-output.md <<'EOF'
+          ## English
+          Customer impact is clear. Next steps: monitor risk.
+
+          ## Traditional Chinese
+          Customer impact is clear. Next steps: monitor risk.
+          EOF
+          python scripts/score_output.py \
+            --file /tmp/sample-output.md \
+            --audience client \
+            --min-score 40
+
+      - name: Run regression fixtures
+        run: python scripts/run_regression_tests.py

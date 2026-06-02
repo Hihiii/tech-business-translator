@@ -37,18 +37,46 @@ def check_required_files(failures: list[str]) -> None:
         "SKILL.md",
         "README.md",
         "scripts/check_jargon.py",
+        "scripts/check_bilingual_consistency.py",
+        "scripts/score_output.py",
+        "scripts/run_regression_tests.py",
         "scripts/validate_skill.py",
         "references/jargon-glossary.md",
         "references/workflow-guide.md",
+        "references/audience-guide.md",
+        "references/tone-guide.md",
+        "references/zh-tw-style-guide.md",
+        "references/legal-safe-communication.md",
+        "references/red-team-checklist.md",
+        "references/domain-kpi-mapping.md",
+        "references/router.md",
         "templates/incident-report.md",
         "templates/tech-debt-report.md",
         "templates/progress-report.md",
         "templates/feature-pitch.md",
         "templates/security-advisory.md",
         "templates/post-mortem.md",
+        "templates/client-email.md",
+        "templates/slack-update.md",
+        "templates/executive-brief.md",
+        "templates/decision-memo.md",
+        "templates/customer-faq.md",
         "examples/incident-bilingual.md",
         "examples/tech-debt-bilingual.md",
         "examples/security-advisory-bilingual.md",
+        "examples/progress-report-bilingual.md",
+        "examples/feature-pitch-bilingual.md",
+        "examples/post-mortem-bilingual.md",
+        "examples/client-email-bilingual.md",
+        "examples/slack-update-bilingual.md",
+        "examples/decision-memo-bilingual.md",
+        "examples/customer-faq-bilingual.md",
+        "output-packs/stakeholder-incident-pack.md",
+        "output-packs/security-communication-pack.md",
+        "showcase/before-after.md",
+        "tests/fixtures/prompt_cases.json",
+        ".github/workflows/validate.yml",
+        "LICENSE",
     ]
     for rel_path in required:
         if not (ROOT / rel_path).exists():
@@ -115,6 +143,37 @@ def check_jargon_script(failures: list[str]) -> None:
         fail("check_jargon.py smoke test did not detect expected jargon.", failures)
 
 
+def check_auxiliary_scripts(failures: list[str]) -> None:
+    commands = [
+        [
+            sys.executable,
+            str(ROOT / "scripts" / "check_bilingual_consistency.py"),
+            "--file",
+            str(ROOT / "examples" / "incident-bilingual.md"),
+            "--json",
+        ],
+        [
+            sys.executable,
+            str(ROOT / "scripts" / "score_output.py"),
+            "--input",
+            "## English\nCustomer impact is clear. Next steps: monitor risk.\n\n## Traditional Chinese\n客戶影響明確。後續行動：監控風險。",
+            "--audience",
+            "client",
+            "--json",
+        ],
+        [
+            sys.executable,
+            str(ROOT / "scripts" / "run_regression_tests.py"),
+        ],
+    ]
+    for cmd in commands:
+        proc = subprocess.run(cmd, capture_output=True)
+        if proc.returncode != 0:
+            stdout = proc.stdout.decode("utf-8", errors="replace")
+            stderr = proc.stderr.decode("utf-8", errors="replace")
+            fail(f"Auxiliary script failed: {' '.join(cmd)}\n{stderr or stdout}", failures)
+
+
 def main() -> int:
     failures: list[str] = []
     check_required_files(failures)
@@ -122,6 +181,7 @@ def main() -> int:
     check_mojibake(failures)
     check_templates(failures)
     check_jargon_script(failures)
+    check_auxiliary_scripts(failures)
 
     if failures:
         print("VALIDATION FAILED")

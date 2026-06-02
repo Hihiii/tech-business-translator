@@ -1,0 +1,47 @@
+[
+  {
+    "id": "incident_checkout",
+    "prompt": "P0 checkout API error rate hit 18% for 22 minutes. Write a bilingual client-safe update.",
+    "expected_audience": "client",
+    "expected_language": "bilingual",
+    "expected_template": "incident-report",
+    "must_include": ["18%", "22 minutes", "current status"],
+    "avoid_terms": ["Kubernetes", "pod scheduling", "stack trace"]
+  },
+  {
+    "id": "security_cve",
+    "prompt": "CVE in a dependency, no exploitation observed. Write a customer advisory in English and Traditional Chinese.",
+    "expected_audience": "client",
+    "expected_language": "bilingual",
+    "expected_template": "security-advisory",
+    "must_include": ["current evidence", "customer action"],
+    "avoid_terms": ["guaranteed", "impossible to exploit"]
+  },
+  {
+    "id": "tech_debt_auth",
+    "prompt": "Auth service has no test coverage and manual testing takes 2 days. Turn into VP business case.",
+    "expected_audience": "vp",
+    "expected_language": "match_user",
+    "expected_template": "tech-debt-report",
+    "must_include": ["2 days", "delivery speed", "risk"],
+    "avoid_terms": ["monolith", "CI/CD"]
+  },
+  {
+    "id": "feature_pitch_dark_mode",
+    "prompt": "Dark mode requested in 40% of support tickets. Create feature pitch.",
+    "expected_audience": "pm",
+    "expected_language": "match_user",
+    "expected_template": "feature-pitch",
+    "must_include": ["40%", "customer satisfaction"],
+    "avoid_terms": ["CSS", "frontend implementation"]
+  },
+  {
+    "id": "decision_memo_latency",
+    "prompt": "Option A costs $3k/month and reduces latency 40%. Option B defers. Write decision memo.",
+    "expected_audience": "executive",
+    "expected_language": "match_user",
+    "expected_template": "decision-memo",
+    "must_include": ["$3k/month", "40%", "recommendation"],
+    "avoid_terms": ["p95", "autoscaling"]
+  }
+]
