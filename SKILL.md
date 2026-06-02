@@ -146,6 +146,14 @@ python scripts/check_jargon.py --file output.md --audience client --threshold 10
 python scripts/check_jargon.py --stdin --audience legal --strict
 ```
 
+Hermes Agent may expose the skill directory as `${HERMES_SKILL_DIR}` when the skill is loaded. In that environment, run bundled scripts with:
+
+```bash
+python ${HERMES_SKILL_DIR}/scripts/check_jargon.py --input "Your translated text" --audience executive
+python ${HERMES_SKILL_DIR}/scripts/check_bilingual_consistency.py --file output.md
+python ${HERMES_SKILL_DIR}/scripts/score_output.py --file output.md --audience executive
+```
+
 Targets:
 
 - Executive / Client / Media: under 5-8% jargon.

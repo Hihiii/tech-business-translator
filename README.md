@@ -35,19 +35,33 @@ Traditional Chinese:
 
 ## Installation
 
-Install this skill by cloning the repository into your Codex skills directory:
+Install this skill by cloning the repository into your agent's skills directory.
+
+Codex:
 
 ```bash
 git clone https://github.com/Hihiii/tech-business-translator.git ~/.codex/skills/tech-business-translator
 ```
 
-On Windows PowerShell:
+Codex on Windows PowerShell:
 
 ```powershell
 git clone https://github.com/Hihiii/tech-business-translator.git "$env:USERPROFILE\.codex\skills\tech-business-translator"
 ```
 
-After installation, start a new Codex session so the skill metadata can be discovered.
+Hermes Agent:
+
+```bash
+git clone https://github.com/Hihiii/tech-business-translator.git ~/.hermes/skills/tech-business-translator
+```
+
+Hermes Agent with an optional category folder:
+
+```bash
+git clone https://github.com/Hihiii/tech-business-translator.git ~/.hermes/skills/business/tech-business-translator
+```
+
+After installation, start a new Codex or Hermes session so the skill metadata can be discovered.
 
 ## Core Workflow
 
@@ -180,11 +194,25 @@ It checks required files, `SKILL.md` frontmatter, common mojibake markers, bilin
 
 安裝方式：
 
+Codex：
+
 ```powershell
 git clone https://github.com/Hihiii/tech-business-translator.git "$env:USERPROFILE\.codex\skills\tech-business-translator"
 ```
 
-安裝後，請開啟新的 Codex session，讓系統重新讀取 skill metadata。
+Hermes Agent：
+
+```bash
+git clone https://github.com/Hihiii/tech-business-translator.git ~/.hermes/skills/tech-business-translator
+```
+
+或依分類放置：
+
+```bash
+git clone https://github.com/Hihiii/tech-business-translator.git ~/.hermes/skills/business/tech-business-translator
+```
+
+安裝後，請開啟新的 Codex 或 Hermes session，讓系統重新讀取 skill metadata。
 
 適用情境包含：
 
