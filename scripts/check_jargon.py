@@ -278,6 +278,61 @@ TECH_JARGON = {
     "idempotency key": "repetition prevention",
 }
 
+ZH_TECH_JARGON = {
+    "API": "系統整合、資料連接、資料服務",
+    "endpoint": "連接點、服務網址",
+    "後端": "資料處理系統",
+    "前端": "使用者介面",
+    "伺服器": "處理系統、基礎設施",
+    "部署": "上線、發布、交付",
+    "回滾": "回復到前一版本",
+    "發布": "上線、交付",
+    "CI/CD": "自動化交付流程",
+    "pipeline": "自動化流程",
+    "容器": "隔離式應用程式封裝",
+    "叢集": "基礎設施群組",
+    "節點": "處理資源",
+    "Kubernetes": "基礎設施管理平台",
+    "K8s": "基礎設施管理平台",
+    "Docker": "應用程式封裝工具",
+    "資料庫": "資料儲存系統",
+    "查詢": "資料查詢、資料請求",
+    "索引": "搜尋最佳化",
+    "schema": "資料結構",
+    "migration": "資料結構更新",
+    "快取": "暫存資料",
+    "佇列": "等待處理的工作清單",
+    "延遲": "回應時間",
+    "吞吐量": "處理能力",
+    "流量": "使用量、請求量",
+    "限流": "使用量限制",
+    "錯誤率": "失敗率、問題比例",
+    "中斷": "服務中斷",
+    "當機": "服務無法正常運作",
+    "技術債": "延後維護",
+    "重構": "改善系統結構、改善程式品質",
+    "程式碼審查": "同儕品質檢查",
+    "PR": "變更提案",
+    "debug": "找出並修正問題",
+    "bug": "問題、缺陷",
+    "例外": "非預期錯誤",
+    "漏洞": "資安弱點",
+    "弱點": "風險點、資安弱點",
+    "CVE": "資安公告編號",
+    "修補": "修正、資安修補",
+    "加密": "資料保護",
+    "驗證": "使用者驗證",
+    "授權": "存取權限",
+    "token": "存取憑證",
+    "JWT": "安全憑證",
+    "OAuth": "安全登入機制",
+    "測試覆蓋率": "測試完整度",
+    "單元測試": "元件層級測試",
+    "整合測試": "系統互動測試",
+    "端到端測試": "完整使用流程測試",
+    "回歸測試": "確認既有功能仍正常",
+}
+
 
 AUDIENCE_ALLOWLIST = {
     "executive": {"AI", "app", "cloud", "security", "software", "system", "data"},
@@ -293,15 +348,26 @@ def _term_pattern(term: str) -> re.Pattern[str]:
     return re.compile(r"(?<![A-Za-z0-9_])" + re.escape(term) + r"(?![A-Za-z0-9_])", re.IGNORECASE)
 
 
+def _contains_cjk(term: str) -> bool:
+    return any("\u4e00" <= char <= "\u9fff" for char in term)
+
+
+def _find_matches(term: str, text: str) -> list[re.Match[str]]:
+    if _contains_cjk(term):
+        return list(re.finditer(re.escape(term), text, re.IGNORECASE))
+    return list(_term_pattern(term).finditer(text))
+
+
 def check_jargon(text: str, audience: str = "pm", allow_terms: Iterable[str] = ()) -> dict:
     allow = {term.lower() for term in AUDIENCE_ALLOWLIST.get(audience, set())}
     allow.update(term.lower() for term in allow_terms)
 
     found = []
-    for term, suggestion in sorted(TECH_JARGON.items(), key=lambda item: -len(item[0])):
+    combined_jargon = {**TECH_JARGON, **ZH_TECH_JARGON}
+    for term, suggestion in sorted(combined_jargon.items(), key=lambda item: -len(item[0])):
         if term.lower() in allow:
             continue
-        matches = list(_term_pattern(term).finditer(text))
+        matches = _find_matches(term, text)
         if not matches:
             continue
         count = len(matches)

@@ -1,0 +1,44 @@
+name: Validate Skill
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Validate skill structure
+        run: python scripts/validate_skill.py
+
+      - name: Check English jargon detection
+        run: |
+          python scripts/check_jargon.py \
+            --input "Our Redis API latency is high" \
+            --audience executive \
+            --threshold 100
+
+      - name: Check Traditional Chinese jargon detection
+        run: |
+          python scripts/check_jargon.py \
+            --input "API 延遲升高，快取命中率下降" \
+            --audience executive \
+            --threshold 100
+
+      - name: Check clean business text
+        run: |
+          python scripts/check_jargon.py \
+            --input "Customer response time is slower than expected" \
+            --audience client \
+            --strict

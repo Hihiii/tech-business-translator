@@ -100,12 +100,14 @@ def check_jargon_script(failures: list[str]) -> None:
         "executive",
         "--json",
     ]
-    proc = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8")
+    proc = subprocess.run(cmd, capture_output=True)
     if proc.returncode not in {0, 1}:
-        fail(f"check_jargon.py failed unexpectedly: {proc.stderr or proc.stdout}", failures)
+        stdout = proc.stdout.decode("utf-8", errors="replace")
+        stderr = proc.stderr.decode("utf-8", errors="replace")
+        fail(f"check_jargon.py failed unexpectedly: {stderr or stdout}", failures)
         return
     try:
-        data = json.loads(proc.stdout)
+        data = json.loads(proc.stdout.decode("utf-8", errors="replace"))
     except json.JSONDecodeError as exc:
         fail(f"check_jargon.py did not return valid JSON: {exc}", failures)
         return

@@ -108,3 +108,25 @@ Traditional Chinese:
 - Do not turn precise security, legal, or compliance terms into vague assurances.
 - Prefer "not yet quantified" over invented numbers.
 - For Traditional Chinese, translate the business implication, not the English sentence structure.
+
+## Traditional Chinese Checker Notes
+
+`scripts/check_jargon.py` also flags common Traditional Chinese technical terms. Use it as a signal, not a strict replacement engine. Some terms, such as "資料庫", "資安", "驗證", or "技術債", may be acceptable for PM or internal audiences but should often be explained for clients or executives.
+
+Common Traditional Chinese replacements:
+
+| Technical Chinese | Business-Friendly Chinese |
+|---|---|
+| 部署 | 上線、發布、交付 |
+| 回滾 | 回復到前一版本 |
+| 容器 | 隔離式應用程式封裝 |
+| 叢集 | 基礎設施群組 |
+| 節點 | 處理資源 |
+| 快取 | 暫存資料 |
+| 佇列 | 等待處理的工作清單 |
+| 延遲 | 回應時間 |
+| 限流 | 使用量限制 |
+| 重構 | 改善系統結構 |
+| 漏洞 | 資安弱點 |
+| token | 存取憑證 |
+| 測試覆蓋率 | 測試完整度 |

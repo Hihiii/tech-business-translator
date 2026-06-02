@@ -33,6 +33,22 @@ Traditional Chinese:
 - "產出中英文資安公告摘要。"
 - "做一份雙語事後檢討。"
 
+## Installation
+
+Install this skill by cloning the repository into your Codex skills directory:
+
+```bash
+git clone https://github.com/Hihiii/tech-business-translator.git ~/.codex/skills/tech-business-translator
+```
+
+On Windows PowerShell:
+
+```powershell
+git clone https://github.com/Hihiii/tech-business-translator.git "$env:USERPROFILE\.codex\skills\tech-business-translator"
+```
+
+After installation, start a new Codex session so the skill metadata can be discovered.
+
 ## Core Workflow
 
 The skill follows four steps:
@@ -111,6 +127,14 @@ It checks required files, `SKILL.md` frontmatter, common mojibake markers, bilin
 ## Chinese README / 中文說明
 
 `tech-business-translator` 是一個給 AI 使用的 skill，用來把技術內容轉成商業受眾看得懂的英文、繁體中文或中英文雙語訊息。
+
+安裝方式：
+
+```powershell
+git clone https://github.com/Hihiii/tech-business-translator.git "$env:USERPROFILE\.codex\skills\tech-business-translator"
+```
+
+安裝後，請開啟新的 Codex session，讓系統重新讀取 skill metadata。
 
 適用情境包含：
 
