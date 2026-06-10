@@ -38,6 +38,7 @@ def check_required_files(failures: list[str]) -> None:
         "README.md",
         "scripts/check_jargon.py",
         "scripts/check_bilingual_consistency.py",
+        "scripts/check_delivery_readiness.py",
         "scripts/score_output.py",
         "scripts/run_regression_tests.py",
         "scripts/validate_skill.py",
@@ -50,6 +51,11 @@ def check_required_files(failures: list[str]) -> None:
         "references/red-team-checklist.md",
         "references/domain-kpi-mapping.md",
         "references/router.md",
+        "references/virtual-engineer-operating-model.md",
+        "references/delegation-guide.md",
+        "references/visual-code-qa.md",
+        "references/unattended-research-guide.md",
+        "references/self-check-test-guide.md",
         "templates/incident-report.md",
         "templates/tech-debt-report.md",
         "templates/progress-report.md",
@@ -61,6 +67,10 @@ def check_required_files(failures: list[str]) -> None:
         "templates/executive-brief.md",
         "templates/decision-memo.md",
         "templates/customer-faq.md",
+        "templates/project-plan.md",
+        "templates/task-delegation-plan.md",
+        "templates/visual-qa-report.md",
+        "templates/research-brief.md",
         "examples/incident-bilingual.md",
         "examples/tech-debt-bilingual.md",
         "examples/security-advisory-bilingual.md",
@@ -71,8 +81,12 @@ def check_required_files(failures: list[str]) -> None:
         "examples/slack-update-bilingual.md",
         "examples/decision-memo-bilingual.md",
         "examples/customer-faq-bilingual.md",
+        "examples/project-plan-bilingual.md",
+        "examples/visual-qa-bilingual.md",
+        "examples/research-brief-bilingual.md",
         "output-packs/stakeholder-incident-pack.md",
         "output-packs/security-communication-pack.md",
+        "output-packs/virtual-engineer-delivery-pack.md",
         "showcase/before-after.md",
         "tests/fixtures/prompt_cases.json",
         ".github/workflows/validate.yml",
@@ -106,6 +120,10 @@ def check_mojibake(failures: list[str]) -> None:
         for pattern in BAD_PATTERNS:
             if pattern in text:
                 fail(f"Potential mojibake marker '{pattern}' found in {path.relative_to(ROOT)}", failures)
+                break
+        for char in text:
+            if "\ue000" <= char <= "\uf8ff":
+                fail(f"Private-use Unicode character found in {path.relative_to(ROOT)}", failures)
                 break
 
 
@@ -164,6 +182,15 @@ def check_auxiliary_scripts(failures: list[str]) -> None:
         [
             sys.executable,
             str(ROOT / "scripts" / "run_regression_tests.py"),
+        ],
+        [
+            sys.executable,
+            str(ROOT / "scripts" / "check_delivery_readiness.py"),
+            "--file",
+            str(ROOT / "templates" / "research-brief.md"),
+            "--mode",
+            "research",
+            "--json",
         ],
     ]
     for cmd in commands:

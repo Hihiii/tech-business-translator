@@ -1,3 +1,3 @@
 display_name: Tech-to-Business Translator
-short_description: Rewrite technical content into English or Traditional Chinese business communication.
-default_prompt: Translate this technical content into a business-friendly update for the appropriate audience.
+short_description: Convert technical work into business communication, project plans, QA reports, and research briefs.
+default_prompt: Translate, plan, validate, or package this technical work into a stakeholder-ready deliverable.

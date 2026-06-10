@@ -17,6 +17,10 @@ Use this guide to choose the right output path.
 | one-pager, exec brief, leadership summary | `templates/executive-brief.md` |
 | decision, options, tradeoff, recommendation | `templates/decision-memo.md` |
 | FAQ, support talking points, customer questions | `templates/customer-faq.md` |
+| project breakdown, implementation plan, phased plan | `templates/project-plan.md` |
+| delegate, subagents, workstreams, task split | `templates/task-delegation-plan.md` |
+| visual QA, compare frontend to design, screenshot mismatch | `templates/visual-qa-report.md` |
+| finance/legal research, document review, diligence, evidence synthesis | `templates/research-brief.md` |
 
 ## Ambiguous Prompts
 
@@ -29,3 +33,5 @@ Use this guide to choose the right output path.
 ## Output Pack Routing
 
 If the user asks for a full communication package, use `output-packs/stakeholder-incident-pack.md` or `output-packs/security-communication-pack.md`.
+
+If the user asks for autonomous project execution, planning, QA, or research delivery, use `output-packs/virtual-engineer-delivery-pack.md`.

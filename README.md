@@ -12,6 +12,7 @@ This skill helps AI turn engineering facts into stakeholder-ready messages for e
 - Produces English, Traditional Chinese, or bilingual output.
 - Provides reusable templates for incidents, technical debt, progress reports, feature pitches, security advisories, and post-mortems.
 - Includes a jargon checker to flag remaining technical terms.
+- Supports virtual engineering workflows: project decomposition, task delegation, visual QA, self-checking, testing, and document-heavy research briefs.
 
 ## Typical Prompts
 
@@ -97,6 +98,11 @@ tech-business-translator/
     domain-kpi-mapping.md
     router.md
     zh-tw-style-guide.md
+    virtual-engineer-operating-model.md
+    delegation-guide.md
+    visual-code-qa.md
+    unattended-research-guide.md
+    self-check-test-guide.md
   examples/
     incident-bilingual.md
     tech-debt-bilingual.md
@@ -104,12 +110,14 @@ tech-business-translator/
   scripts/
     check_jargon.py
     check_bilingual_consistency.py
+    check_delivery_readiness.py
     score_output.py
     run_regression_tests.py
     validate_skill.py
   output-packs/
     stakeholder-incident-pack.md
     security-communication-pack.md
+    virtual-engineer-delivery-pack.md
   showcase/
     before-after.md
 ```
@@ -129,6 +137,10 @@ Each template includes an English section and a Traditional Chinese section:
 - `executive-brief.md`: leadership one-pagers and board pre-reads.
 - `decision-memo.md`: options, tradeoffs, and recommendation memos.
 - `customer-faq.md`: customer support FAQ and talking points.
+- `project-plan.md`: project decomposition, phases, workstreams, validation.
+- `task-delegation-plan.md`: real subagent or simulated workstream delegation.
+- `visual-qa-report.md`: frontend/design visual comparison reports.
+- `research-brief.md`: finance, legal, compliance, or diligence research briefs.
 
 ## Quality Tools
 
@@ -160,6 +172,13 @@ Output quality score:
 python scripts/score_output.py --file output.md --audience executive --min-score 70
 ```
 
+Delivery readiness check:
+
+```bash
+python scripts/check_delivery_readiness.py --file output.md --mode research
+python scripts/check_delivery_readiness.py --file visual-qa.md --mode visual
+```
+
 Regression fixture check:
 
 ```bash
@@ -185,6 +204,11 @@ It checks required files, `SKILL.md` frontmatter, common mojibake markers, bilin
 - `references/red-team-checklist.md`: final review checklist for high-risk outputs.
 - `references/domain-kpi-mapping.md`: SaaS, e-commerce, fintech, healthcare, and B2B KPI mapping.
 - `references/router.md`: prompt-to-template routing rules.
+- `references/virtual-engineer-operating-model.md`: autonomous project planning, execution, integration, and verification.
+- `references/delegation-guide.md`: subagent and workstream assignment rules.
+- `references/visual-code-qa.md`: frontend/design screenshot comparison workflow.
+- `references/unattended-research-guide.md`: finance, legal, compliance, and document-heavy research workflow.
+- `references/self-check-test-guide.md`: testing and delivery readiness checks.
 - `output-packs/`: multi-audience communication packs.
 - `showcase/before-after.md`: example transformation from technical input to business output.
 

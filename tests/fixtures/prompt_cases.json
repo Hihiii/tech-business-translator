@@ -43,5 +43,32 @@
     "expected_template": "decision-memo",
     "must_include": ["$3k/month", "40%", "recommendation"],
     "avoid_terms": ["p95", "autoscaling"]
+  },
+  {
+    "id": "virtual_engineer_project_plan",
+    "prompt": "Break this large client incident communication project into phases and delegate workstreams.",
+    "expected_audience": "engineering_leadership",
+    "expected_language": "match_user",
+    "expected_template": "project-plan",
+    "must_include": ["phases", "workstreams", "validation"],
+    "avoid_terms": ["just summarize", "no testing"]
+  },
+  {
+    "id": "visual_qa_frontend",
+    "prompt": "Compare the frontend implementation against the design screenshot and report mismatches.",
+    "expected_audience": "engineering",
+    "expected_language": "match_user",
+    "expected_template": "visual-qa-report",
+    "must_include": ["source design", "viewports", "severity"],
+    "avoid_terms": ["looks fine", "exact match without screenshot"]
+  },
+  {
+    "id": "unattended_research_legal_finance",
+    "prompt": "Research these financial and legal documents and produce a review-ready bilingual brief.",
+    "expected_audience": "executive",
+    "expected_language": "bilingual",
+    "expected_template": "research-brief",
+    "must_include": ["source inventory", "evidence", "confidence"],
+    "avoid_terms": ["legal advice", "investment advice"]
   }
 ]

@@ -62,3 +62,9 @@ jobs:
 
       - name: Run regression fixtures
         run: python scripts/run_regression_tests.py
+
+      - name: Check delivery readiness
+        run: |
+          python scripts/check_delivery_readiness.py \
+            --file templates/research-brief.md \
+            --mode research
